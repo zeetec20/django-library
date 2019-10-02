@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock style %}
+
+{% block body %}
+    <div class="popup">
+        {% include "update-add-book.html" %}
+    </div>
+    
+    <div class="list">
+        {% include "listBooks.html" %}
+    </div>
+{% endblock body %}

@@ -1,0 +1,17 @@
+.popup{
+    position: fixed;
+    margin: 28%;
+    width: 40%;
+    margin-top: -39%;
+    z-index: 999;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.list{
+    margin-top: 50px;
+}
+
+.field{
+    margin: 10px;
+}
