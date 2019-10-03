@@ -2,7 +2,7 @@
 <div class="container listBook">
     <table class="table " id="table">
         <thead>
-            <button class="btn btn-primary" id="createBook"> + Add Book</button>
+            <button class="btn btn-primary" id="addBook"> + Add Book</button>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
@@ -59,7 +59,7 @@
         clearInterval(window.refresh);
     });
 
-    $('#createBook').click(function () {
+    $('#addBook').click(function () {
         $.ajax({
             type: 'GET',
             url: '/actionBooks',

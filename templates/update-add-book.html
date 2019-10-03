@@ -71,7 +71,26 @@ $('.save').click(function () {
             }
         });
     } else if ($('.popup').attr('action') == 'create') {
-        console.log('Create');
+        $.ajax({
+            type: 'POST',
+            url: '/saveBooks/add',
+            data: {
+                'number': $('.book').attr('number'),
+                'title': $('.inputTitle').val(),
+                'author': $('.inputAuthor').val(),
+                'genre': $('.inputGenre').val(),
+                'publishDate': $('.inputPublishDate').val(),
+                'pages': $('.inputPages').val(),
+                'price': $('.inputPrice').val(),
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function (returnData) {
+                if (returnData.success) {
+                    $('.popup').css({'margin-top': '-39%', 'opacity': '0', 'visibility': 'hidden'});
+                    window.refresh = refreshAjaxInterval(1000);
+                }
+            }
+        });
     }
 })
 </script>

@@ -36,7 +36,8 @@ class BookForm(forms.ModelForm):
             'publishDate': forms.DateInput(
                 attrs = {
                     'class': 'form-control form-control-sm inputPublishDate',
-                    'name': 'publishDate'
+                    'name': 'publishDate',
+                    'placeholder': '2019-2-23 | year-mont-day'
                 }
             ),
             'pages': forms.NumberInput(

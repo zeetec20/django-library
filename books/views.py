@@ -9,6 +9,7 @@ def index(request):
     context = {
         'bookAll': Book.objects.all()
     }
+
     if request.is_ajax():
         context['bookAll'] = Book.objects.all()
         return render(request, 'listBooks.html', context)
@@ -23,21 +24,20 @@ def actionBooks(request):
                 number = (int(request.GET['book']) - 1)
                 book = Book.objects.all()[number]
                 valueBook = book.__dict__
-                print(valueBook)
                 form = BookForm(initial = valueBook)
-                date = copy.deepcopy(book.publishDate)
-                print(date)
 
                 context = {
                     'book': Book.objects.all()[number],
-                    'bookPublishDate': date,
                     'formBook': form,
                     'bookNumber': int(request.GET['book'])
                 }
 
                 return render(request, 'update-add-book.html', context)
             elif request.GET['action'] == 'create':
-                return render(request, 'update-add-book.html', {})
+                context = {
+                    'formBook': BookForm(),
+                }
+                return render(request, 'update-add-book.html', context)
 
 def saveBooks(request, action):
     if request.method == 'POST':
@@ -45,13 +45,25 @@ def saveBooks(request, action):
             number = (int(request.POST['number']) - 1)
             book = Book.objects.all()[number],
             book = book[0]
-            book.title = request.POST['title']
-            book.author = request.POST['author']
-            book.genre = request.POST['genre']
-            book.publishDate = request.POST['publishDate']
-            book.pages = request.POST['pages']
-            book.price = request.POST['price']
-            book.save()
+            formBook = BookForm(request.POST)
+            if formBook.is_valid():
+                book.title = formBook.cleaned_data['title']
+                book.author = formBook.cleaned_data['author']
+                book.genre = formBook.cleaned_data['genre']
+                book.publishDate = formBook.cleaned_data['publishDate']
+                book.pages = formBook.cleaned_data['pages']
+                book.price = formBook.cleaned_data['price']
+                book.save()
+            
             return JsonResponse({'success': True})
-        elif action == 'create':
-            pass
+        elif action == 'add':
+            formBook = BookForm(request.POST)
+            if formBook.is_valid():
+                formBook.save()
+                return JsonResponse({'success': True})
+
+def deleteBook(inputTitle):
+    book = Book.objects.all(title = inputTitle)
+    book.delete()
+
+    return JsonResponse({'success': True})
