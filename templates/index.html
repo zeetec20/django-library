@@ -6,6 +6,7 @@
 {% endblock style %}
 
 {% block body %}
+{% csrf_token %}
     <div class="popup">
         {% include "update-add-book.html" %}
     </div>
