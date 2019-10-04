@@ -8,6 +8,15 @@
     visibility: hidden;
 }
 
+.message{
+    margin: auto !important;
+    margin-left: 40% !important;
+    position: absolute !important;
+    visibility: hidden;
+    opacity: 0;
+    top: -20%; /* 7% */
+}
+
 .list{
     margin-top: 50px;
 }

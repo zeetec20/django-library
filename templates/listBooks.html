@@ -20,7 +20,7 @@
                     <!-- <form action="" method="post"> -->
                         <div class="value">
                             <th scope="row">{{forloop.counter}}</th>
-                            <td id="title{{forloop.counter}}">{{book.title}}</td>
+                            <td class="title{{forloop.counter}} title">{{book.title}}</td>
                             <td id="author{{forloop.counter}}">{{book.author}}</td>
                             <td id="genre{{forloop.counter}}">{{book.genre}}</td>
                             <td id="publishDate{{forloop.counter}}">{{book.publishDate}}</td>
@@ -39,6 +39,8 @@
 </div>
 
 <script>
+    var titleDelete;
+
     $('.edit').click(function () {
         let number = $(this).attr('book');
         $.ajax({
@@ -49,8 +51,16 @@
                 'book': number,
             },
             success: function (returnData) {
-                $('.popup').attr({'message': 'Update Data Book', 'action': 'update'});
-                $('.popup').css({'transition': 'all 1s','visibility': 'visible', 'opacity': '1', 'margin-top': '-1%'});
+                $('.popup').attr({
+                    'message': 'Update Data Book', 
+                    'action': 'update'
+                });
+                $('.popup').css({
+                    'transition': 'all 1s', 
+                    'visibility': 'visible', 
+                    'opacity': '1', 
+                    'margin-top': '-1%'
+                });
                 $('.popup').html(returnData);
             }
         });
@@ -67,11 +77,33 @@
                 'action': 'create',
             },
             success: function (returnData) {
-                $('.popup').attr({'message': 'Create Data Book', 'action': 'create'});
-                $('.popup').css({'transition': 'all 1s','visibility': 'visible', 'opacity': '1', 'margin-top': '-1%'});
+                $('.popup').attr({
+                    'message': 'Create Data Book', 
+                    'action': 'create'
+                });
+                $('.popup').css({
+                    'transition': 'all 1s', 
+                    'visibility': 'visible', 
+                    'opacity': '1', 
+                    'margin-top': '-1%'
+                });
                 $('.popup').html(returnData);
             }
         });
+        
         clearInterval(window.refresh);
     })
+    $('.delete').click(function () {
+        $('.message').css({
+            'transition': 'all 1s', 
+            'visibility': 'visible', 
+            'opacity': '1', 
+            'top': '7%'
+        });
+
+        let number = $(this).attr('book');
+        window.titleDelete = $('.title' + number).text();
+
+        clearInterval(window.refresh);
+    });
 </script>

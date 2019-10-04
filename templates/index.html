@@ -7,6 +7,10 @@
 
 {% block body %}
 {% csrf_token %}
+    <div class="message">
+        {% include 'message.html' %}
+    </div>
+
     <div class="popup">
         {% include "update-add-book.html" %}
     </div>

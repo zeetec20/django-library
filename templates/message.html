@@ -1,0 +1,44 @@
+<div class="card text-white bg-secondary mb-5 shadow-lg" style="max-width: 18rem;">
+    <div class="card-header">Message</div>
+    <div class="card-body">
+        <p class="card-text">Do you want to delete {{title}} ?</p>
+        <button class="btn btn-warning messageCancel btn-sm" style="float: left">Cancel</button>
+        <button class="btn btn-danger messageDelete btn-sm" style="float: right">Delete</button>
+    </div>
+</div>
+
+<script>
+    $('.messageDelete').click(function () {
+
+        $('.message').css({
+            'transition': 'all 1s', 
+            'visibility': 'hidden', 
+            'opacity': '0', 
+            'top': '-20%'
+        });
+
+        $.ajax({
+            type: 'GET',
+            url: '/deleteBooks/' + window.titleDelete,
+            data: {
+                
+            },
+            success: function (returnData) {
+
+            }
+        });
+
+        window.refresh = refreshAjaxInterval(1000);
+    });
+
+    $('.messageCancel').click(function () {
+        $('.message').css({
+            'transition': 'all 1s', 
+            'visibility': 'hidden', 
+            'opacity': '0', 
+            'top': '-20%'
+        });
+
+        window.refresh = refreshAjaxInterval(1000);
+    });
+</script>

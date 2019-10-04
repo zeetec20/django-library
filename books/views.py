@@ -62,8 +62,8 @@ def saveBooks(request, action):
                 formBook.save()
                 return JsonResponse({'success': True})
 
-def deleteBook(inputTitle):
-    book = Book.objects.all(title = inputTitle)
+def deleteBook(request, inputTitle):
+    book = Book.objects.get(title = str(inputTitle))
     book.delete()
-
+    
     return JsonResponse({'success': True})

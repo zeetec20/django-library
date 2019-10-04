@@ -1,1 +1,1 @@
-simple ajax django crud
+Simple Ajax Django CRUD
