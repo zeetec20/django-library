@@ -1,5 +1,6 @@
 from django import forms
 from .models import Book
+from datetime import date
 
 class BookForm(forms.ModelForm):
     
@@ -14,42 +15,49 @@ class BookForm(forms.ModelForm):
             "price"
         )
 
+        dateNow = date.today().strftime('%Y-%m-%d')
+
         widgets = {
             'title': forms.TextInput(
                 attrs = {
                     'class': 'form-control form-control-sm inputTitle',
-                    'name': 'title'
+                    'name': 'title',
+                    'placeholder': 'Harry Potter and the Deathly Hallows'
                 }
             ),
             'author': forms.TextInput(
                 attrs = {
                     'class': 'form-control form-control-sm inputAuthor',
-                    'name': 'author'
+                    'name': 'author',
+                    'placeholder': 'J. K. Rowling'
                 }
             ),
             'genre': forms.TextInput(
                 attrs = {
                     'class': 'form-control form-control-sm inputGenre',
-                    'name': 'genre'
+                    'name': 'genre',
+                    'placeholder': 'Action, Horror, Sci-Fi'
                 }
             ),
             'publishDate': forms.DateInput(
                 attrs = {
                     'class': 'form-control form-control-sm inputPublishDate',
                     'name': 'publishDate',
-                    'placeholder': '2019-2-23 | year-mont-day'
+                    'placeholder': '"' + str(dateNow) + '"' + ' | year-month-day'
                 }
             ),
             'pages': forms.NumberInput(
                 attrs = {
                     'class': 'form-control form-control-sm inputPages',
-                    'name': 'pages'
+                    'name': 'pages',
+                    'placeholder': '400'
                 }
             ),
             'price': forms.NumberInput(
                 attrs = {
                     'class': 'form-control form-control-sm inputPrice',
-                    'name': 'price'
+                    'name': 'price',
+                    'placeholder': '"500000" | IDR Rp500.000,00'
                 }
             )
         }

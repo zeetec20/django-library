@@ -2,7 +2,7 @@
 <div class="container listBook">
     <table class="table " id="table">
         <thead>
-            <button class="btn btn-primary" id="addBook"> + Add Book</button>
+            <button class="btn btn-primary btnAddBook" id="addBook"> + Add Book</button>
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Title</th>
@@ -42,6 +42,11 @@
     var titleDelete;
 
     $('.edit').click(function () {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'visibility': 'visible',
+            'opacity': '1',
+        });
         let number = $(this).attr('book');
         $.ajax({
             type: 'GET',
@@ -70,6 +75,11 @@
     });
 
     $('#addBook').click(function () {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'visibility': 'visible',
+            'opacity': '1',
+        });
         $.ajax({
             type: 'GET',
             url: '/actionBooks',
@@ -78,8 +88,8 @@
             },
             success: function (returnData) {
                 $('.popup').attr({
-                    'message': 'Create Data Book', 
-                    'action': 'create'
+                    'message': 'Add Data Book', 
+                    'action': 'add'
                 });
                 $('.popup').css({
                     'transition': 'all 1s', 
@@ -94,11 +104,16 @@
         clearInterval(window.refresh);
     })
     $('.delete').click(function () {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'visibility': 'visible',
+            'opacity': '1',
+        });
         $('.message').css({
             'transition': 'all 1s', 
             'visibility': 'visible', 
             'opacity': '1', 
-            'top': '7%'
+            'top': '29%'
         });
 
         let number = $(this).attr('book');

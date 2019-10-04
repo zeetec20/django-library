@@ -1,5 +1,5 @@
 
-<div class="card book" number='{{bookNumber}}'>
+<div class="card book shadow-lg" number='{{bookNumber}}'>
     <h5 class="card-header" id="headerUpdateAdd">Update Data Book | Add Data Book</h5>
     <div class="card-body">
         {% csrf_token %}
@@ -43,13 +43,27 @@
 $('#headerUpdateAdd').text($('.popup').attr('message'));
 
 $('.cancel').click(function (params) {
-    $('.popup').css({'margin-top': '-39%', 'opacity': '0', 'visibility': 'hidden'});
-    window.refresh = refreshAjaxInterval(1000);
+    $('.barrier').css({
+        'transition': 'all 1s',
+        'opacity': '0',
+        'visibility': 'hidden'
+    });
+    $('.popup').css({
+        'margin-top': '-39%', 
+        'opacity': '0', 
+        'visibility': 'hidden'
+    });
+    window.refresh = refreshAjaxInterval(1500);
 });
 
 $('.save').click(function () {
     if ($('.popup').attr('action') == 'update') {
-        console.log($('.inputTitle').val());
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'opacity': '0',
+            'visibility': 'hidden'
+        });
+
         $.ajax({
             type: 'POST',
             url: '/saveBooks/update',
@@ -66,11 +80,17 @@ $('.save').click(function () {
             success: function (returnData) {
                 if (returnData.success) {
                     $('.popup').css({'margin-top': '-39%', 'opacity': '0', 'visibility': 'hidden'});
-                    window.refresh = refreshAjaxInterval(1000);
+                    window.refresh = refreshAjaxInterval(1500);
                 }
             }
         });
-    } else if ($('.popup').attr('action') == 'create') {
+    } else if ($('.popup').attr('action') == 'add') {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'opacity': '0',
+            'visibility': 'hidden'
+        });
+
         $.ajax({
             type: 'POST',
             url: '/saveBooks/add',
@@ -87,7 +107,7 @@ $('.save').click(function () {
             success: function (returnData) {
                 if (returnData.success) {
                     $('.popup').css({'margin-top': '-39%', 'opacity': '0', 'visibility': 'hidden'});
-                    window.refresh = refreshAjaxInterval(1000);
+                    window.refresh = refreshAjaxInterval(1500);
                 }
             }
         });

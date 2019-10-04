@@ -1,7 +1,7 @@
-<div class="card text-white bg-secondary mb-5 shadow-lg" style="max-width: 18rem;">
+<div class="card bg-light mb-4 shadow-lg">
     <div class="card-header">Message</div>
     <div class="card-body">
-        <p class="card-text">Do you want to delete {{title}} ?</p>
+        <p class="card-text">Do you want to delete ?</p>
         <button class="btn btn-warning messageCancel btn-sm" style="float: left">Cancel</button>
         <button class="btn btn-danger messageDelete btn-sm" style="float: right">Delete</button>
     </div>
@@ -9,6 +9,11 @@
 
 <script>
     $('.messageDelete').click(function () {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'opacity': '0',
+            'visibility': 'hidden'
+        });
 
         $('.message').css({
             'transition': 'all 1s', 
@@ -28,10 +33,16 @@
             }
         });
 
-        window.refresh = refreshAjaxInterval(1000);
+        window.refresh = refreshAjaxInterval(1500);
     });
 
     $('.messageCancel').click(function () {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'opacity': '0',
+            'visibility': 'hidden'
+        });
+
         $('.message').css({
             'transition': 'all 1s', 
             'visibility': 'hidden', 
@@ -39,6 +50,6 @@
             'top': '-20%'
         });
 
-        window.refresh = refreshAjaxInterval(1000);
+        window.refresh = refreshAjaxInterval(1500);
     });
 </script>
