@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block style %}
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+{% endblock style %}
+
+{% block body %}
+{% csrf_token %}
+    <div class="barrier">
+        
+    </div>
+
+    <div class="message">
+        {% include 'message.html' %}
+    </div>
+
+    <div class="popup">
+        {% include "update-add-book.html" %}
+    </div>
+    
+    <div class="list">
+        {% include "listBooks.html" %}
+    </div>
+{% endblock body %}
