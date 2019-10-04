@@ -1,0 +1,116 @@
+
+<div class="card book shadow-lg" number='{{bookNumber}}'>
+    <h5 class="card-header" id="headerUpdateAdd">Update Data Book | Add Data Book</h5>
+    <div class="card-body">
+        {% csrf_token %}
+        <div class="title field">
+            <label for="title">Title : </label>
+            {{formBook.title}}
+        </div>
+
+        <div class="author field">
+            <label for="author">Author : </label>
+            {{formBook.author}}
+        </div>
+
+        <div class="genre field">
+            <label for="genre">Genre : </label>
+            {{formBook.genre}}
+        </div>
+
+        <div class="publishDate field">
+            <label for="publishDate">Publish Date : </label>
+            {{formBook.publishDate}}
+        </div>
+
+        <div class="pages field">
+            <label for="pages">Pages : </label>
+            {{formBook.pages}}
+        </div>
+
+        <div class="price field">
+            <label for="price">Price : </label>
+            {{formBook.price}}
+        </div>
+
+        <button class="btn btn-danger cancel">Cancel</button>
+        <button class="btn btn-primary save">Save</button>
+    </div>
+</div>
+
+<script>
+
+$('#headerUpdateAdd').text($('.popup').attr('message'));
+
+$('.cancel').click(function (params) {
+    $('.barrier').css({
+        'transition': 'all 1s',
+        'opacity': '0',
+        'visibility': 'hidden'
+    });
+    $('.popup').css({
+        'margin-top': '-39%', 
+        'opacity': '0', 
+        'visibility': 'hidden'
+    });
+    window.refresh = refreshAjaxInterval(1500);
+});
+
+$('.save').click(function () {
+    if ($('.popup').attr('action') == 'update') {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'opacity': '0',
+            'visibility': 'hidden'
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/saveBooks/update',
+            data: {
+                'number': $('.book').attr('number'),
+                'title': $('.inputTitle').val(),
+                'author': $('.inputAuthor').val(),
+                'genre': $('.inputGenre').val(),
+                'publishDate': $('.inputPublishDate').val(),
+                'pages': $('.inputPages').val(),
+                'price': $('.inputPrice').val(),
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function (returnData) {
+                if (returnData.success) {
+                    $('.popup').css({'margin-top': '-39%', 'opacity': '0', 'visibility': 'hidden'});
+                    window.refresh = refreshAjaxInterval(1500);
+                }
+            }
+        });
+    } else if ($('.popup').attr('action') == 'add') {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'opacity': '0',
+            'visibility': 'hidden'
+        });
+
+        $.ajax({
+            type: 'POST',
+            url: '/saveBooks/add',
+            data: {
+                'number': $('.book').attr('number'),
+                'title': $('.inputTitle').val(),
+                'author': $('.inputAuthor').val(),
+                'genre': $('.inputGenre').val(),
+                'publishDate': $('.inputPublishDate').val(),
+                'pages': $('.inputPages').val(),
+                'price': $('.inputPrice').val(),
+                'csrfmiddlewaretoken': $('input[name=csrfmiddlewaretoken]').val()
+            },
+            success: function (returnData) {
+                if (returnData.success) {
+                    $('.popup').css({'margin-top': '-39%', 'opacity': '0', 'visibility': 'hidden'});
+                    window.refresh = refreshAjaxInterval(1500);
+                }
+            }
+        });
+    }
+})
+</script>
