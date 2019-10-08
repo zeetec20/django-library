@@ -1,0 +1,124 @@
+{% load static %}
+<div class="container listBook">
+    <table class="table " id="table">
+        <thead>
+            <button class="btn btn-primary btnAddBook" id="addBook"> + Add Book</button>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Title</th>
+                <th scope="col">Author</th>
+                <th scope="col">Genre</th>
+                <th scope="col">Publish Date</th>
+                <th scope="col">Pages</th>
+                <th scope="col">Price</th>
+                <th scope="col">Action</th>
+            </tr>
+        </thead>
+        <tbody class="bodyTablebook">
+        {% for book in bookAll %}
+                <tr class="book{{forloop.counter}} book">
+                    <!-- <form action="" method="post"> -->
+                        <div class="value">
+                            <th scope="row">{{forloop.counter}}</th>
+                            <td class="title{{forloop.counter}} title">{{book.title}}</td>
+                            <td id="author{{forloop.counter}}">{{book.author}}</td>
+                            <td id="genre{{forloop.counter}}">{{book.genre}}</td>
+                            <td id="publishDate{{forloop.counter}}">{{book.publishDate}}</td>
+                            <td id="pages{{forloop.counter}}">{{book.pages}}</td>
+                            <td id="price{{forloop.counter}}">{{book.price}}</td>
+                        </div>
+                        <td>
+                            <button class="btn btn-warning edit" book="{{forloop.counter}}" id="edit{{forloop.counter}}" >Edit</button>
+                            <button class="btn btn-danger delete" book="{{forloop.counter}}" id="delete{{forloop.counter}}" >Delete</button>
+                        </td>
+                    <!-- </form> -->
+                </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<script>
+    var titleDelete;
+
+    $('.edit').click(function () {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'visibility': 'visible',
+            'opacity': '1',
+        });
+        let number = $(this).attr('book');
+        $.ajax({
+            type: 'GET',
+            url: '/actionBooks',
+            data: {
+                'action': 'update',
+                'book': number,
+            },
+            success: function (returnData) {
+                $('.popup').attr({
+                    'message': 'Update Data Book', 
+                    'action': 'update'
+                });
+                $('.popup').css({
+                    'transition': 'all 1s', 
+                    'visibility': 'visible', 
+                    'opacity': '1', 
+                    'margin-top': '-1%'
+                });
+                $('.popup').html(returnData);
+            }
+        });
+        // $("book" + number.attr('id')).html();
+
+        clearInterval(window.refresh);
+    });
+
+    $('#addBook').click(function () {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'visibility': 'visible',
+            'opacity': '1',
+        });
+        $.ajax({
+            type: 'GET',
+            url: '/actionBooks',
+            data: {
+                'action': 'create',
+            },
+            success: function (returnData) {
+                $('.popup').attr({
+                    'message': 'Add Data Book', 
+                    'action': 'add'
+                });
+                $('.popup').css({
+                    'transition': 'all 1s', 
+                    'visibility': 'visible', 
+                    'opacity': '1', 
+                    'margin-top': '-1%'
+                });
+                $('.popup').html(returnData);
+            }
+        });
+        
+        clearInterval(window.refresh);
+    })
+    $('.delete').click(function () {
+        $('.barrier').css({
+            'transition': 'all 1s',
+            'visibility': 'visible',
+            'opacity': '1',
+        });
+        $('.message').css({
+            'transition': 'all 1s', 
+            'visibility': 'visible', 
+            'opacity': '1', 
+            'top': '29%'
+        });
+
+        let number = $(this).attr('book');
+        window.titleDelete = $('.title' + number).text();
+
+        clearInterval(window.refresh);
+    });
+</script>
