@@ -6,3 +6,9 @@ Demo : https://libraryzeetec20.herokuapp.com/
 - Add Book
 - Delete Book
 - Edit Book
+- Api Book
+
+api url :
+https://libraryzeetec20.herokuapp.com/api
+
+run request.py, and get data api from libraryzeetec20.herokuapp.com
